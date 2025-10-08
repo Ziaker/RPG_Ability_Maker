@@ -29,19 +29,6 @@ const SkillEditor: React.FC<SkillEditorProps> = ({ skill, onSkillChange }) => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Nível
-            </label>
-            <input
-              type="number"
-              value={skill.level}
-              onChange={(e) => updateField('level', parseInt(e.target.value) || 1)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              min="1"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
               Nome da Habilidade
             </label>
             <input
@@ -55,14 +42,14 @@ const SkillEditor: React.FC<SkillEditorProps> = ({ skill, onSkillChange }) => {
 
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Subtítulo
+              Nível
             </label>
             <input
-              type="text"
-              value={skill.subtitle}
-              onChange={(e) => updateField('subtitle', e.target.value)}
+              type="number"
+              value={skill.level}
+              onChange={(e) => updateField('level', parseInt(e.target.value) || 1)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Categoria ou descrição breve"
+              min="1"
             />
           </div>
 
@@ -70,15 +57,15 @@ const SkillEditor: React.FC<SkillEditorProps> = ({ skill, onSkillChange }) => {
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Elementos
             </label>
-            <textarea
+            <input
+              type="text"
               value={skill.elements}
               onChange={(e) => updateField('elements', e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-              placeholder="Use códigos de 4 letras (CRYO, IGNI, etc). Use {chaves} para azul, [colchetes] para vermelho."
-              rows={3}
+              placeholder="CRYO / IGNI"
             />
             <p className="text-xs text-gray-500 mt-1">
-              Elementos disponíveis: {getAllElements().join(', ')}
+              Elementos: {getAllElements().join(', ')}
             </p>
           </div>
         </div>
@@ -131,7 +118,7 @@ const SkillEditor: React.FC<SkillEditorProps> = ({ skill, onSkillChange }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Alcance
@@ -141,7 +128,7 @@ const SkillEditor: React.FC<SkillEditorProps> = ({ skill, onSkillChange }) => {
               value={skill.range}
               onChange={(e) => updateField('range', e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Ex: 10m, Corpo a corpo"
+              placeholder="Ex: 10m"
             />
           </div>
 
@@ -152,14 +139,27 @@ const SkillEditor: React.FC<SkillEditorProps> = ({ skill, onSkillChange }) => {
             <select
               value={skill.speed}
               onChange={(e) => updateField('speed', e.target.value as SpeedType)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             >
               {SPEED_TYPES.map((speed) => (
                 <option key={speed} value={speed}>
-                  {speed}
+                  {speed.replace('_', ' ')}
                 </option>
               ))}
             </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Tipo de Dano
+            </label>
+            <input
+              type="text"
+              value={skill.damageType || ''}
+              onChange={(e) => updateField('damageType', e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Ex: Físico"
+            />
           </div>
         </div>
 
@@ -177,15 +177,16 @@ const SkillEditor: React.FC<SkillEditorProps> = ({ skill, onSkillChange }) => {
         </div>
 
         <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-          <p className="text-xs font-semibold text-gray-700 mb-2">Dicas de Velocidade:</p>
+          <p className="text-xs font-semibold text-gray-700 mb-2">Dicas de Arquétipos:</p>
           <div className="flex flex-wrap gap-2">
-            {SPEED_TYPES.map((speed) => (
-              <span
-                key={speed}
-                className="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded font-medium"
+            {['CHARGE', 'NORMAL', 'NIMBLE', 'BURST', 'AMBUSH', 'INSTANT', 'ITEM EFFECT', 'PASSIVE EFFECT'].map((archetype) => (
+              <button
+                key={archetype}
+                onClick={() => updateField('archetype', archetype)}
+                className="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded font-medium hover:bg-blue-300 transition-colors cursor-pointer"
               >
-                {speed}
-              </span>
+                {archetype}
+              </button>
             ))}
           </div>
         </div>

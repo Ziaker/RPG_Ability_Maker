@@ -8,7 +8,8 @@ import IconUploader from './components/IconUploader';
 import { skillService } from './services/skillService';
 import { exportSkills, importSkills, validateSkill } from './utils/importExport';
 import { useUndoRedo } from './hooks/useUndoRedo';
-import { Download, Upload, Undo, Redo, Save, Loader } from 'lucide-react';
+import { Download, Upload, Undo, Redo, Save, Loader, Image } from 'lucide-react';
+import { exportSkillAsPNG } from './utils/exportPNG';
 
 const createNewSkill = (type: SkillType = 'physical'): Skill => ({
   id: crypto.randomUUID(),
@@ -167,6 +168,16 @@ function App() {
     showMessage('Habilidades exportadas');
   };
 
+  const handleExportPNG = async () => {
+    try {
+      await exportSkillAsPNG('skill-preview', editingSkill.name || 'habilidade');
+      showMessage('Imagem exportada com sucesso!');
+    } catch (err) {
+      showMessage('Erro ao exportar imagem', true);
+      console.error(err);
+    }
+  };
+
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -257,6 +268,14 @@ function App() {
                 className="hidden"
               />
             </label>
+
+            <button
+              onClick={handleExportPNG}
+              className="flex items-center gap-2 px-6 py-3 bg-pink-600 hover:bg-pink-700 rounded-lg font-bold transition-colors"
+            >
+              <Image className="w-5 h-5" />
+              Exportar PNG
+            </button>
           </div>
         </header>
 
@@ -311,15 +330,15 @@ function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-              <div>
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              <div className="lg:col-span-2">
                 <h2 className="text-2xl font-bold mb-4">Editor</h2>
                 <SkillEditor skill={editingSkill} onSkillChange={setEditingSkill} />
               </div>
 
-              <div>
+              <div className="lg:col-span-3">
                 <h2 className="text-2xl font-bold mb-4">Pré-visualização</h2>
-                <SkillPreview skill={editingSkill} />
+                <SkillPreview skill={editingSkill} previewId="skill-preview" />
               </div>
             </div>
           </main>

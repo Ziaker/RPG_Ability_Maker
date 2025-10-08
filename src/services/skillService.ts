@@ -17,6 +17,7 @@ interface SkillDB {
   range: string;
   speed: string;
   archetype: string;
+  damage_type: string | null;
   description: string;
   effect: string;
   energy_icon: string | null;
@@ -36,6 +37,7 @@ const mapDBToSkill = (dbSkill: SkillDB): Skill => ({
   range: dbSkill.range,
   speed: dbSkill.speed as Skill['speed'],
   archetype: dbSkill.archetype,
+  damageType: dbSkill.damage_type || undefined,
   description: dbSkill.description,
   effect: dbSkill.effect,
   energyIcon: dbSkill.energy_icon || undefined,
@@ -54,6 +56,7 @@ const mapSkillToDB = (skill: Skill): Partial<SkillDB> => ({
   range: skill.range,
   speed: skill.speed,
   archetype: skill.archetype,
+  damage_type: skill.damageType || null,
   description: skill.description,
   effect: skill.effect,
   energy_icon: skill.energyIcon || null,

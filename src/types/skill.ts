@@ -19,6 +19,7 @@ export interface Skill {
   range: string;
   speed: SpeedType;
   archetype: string;
+  damageType?: string;
   description: string;
   effect: string;
   energyIcon?: string;
@@ -76,3 +77,7 @@ export const SPEED_TYPES: SpeedType[] = [
   'ITEM_EFFECT',
   'PASSIVE_EFFECT'
 ];
+
+export const getSkillIcon = (type: SkillType): string => {
+  return SKILL_TEMPLATES[type].symbol;
+};

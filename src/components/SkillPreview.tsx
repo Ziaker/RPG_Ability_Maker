@@ -87,9 +87,6 @@ const SkillPreview: React.FC<SkillPreviewProps> = ({ skill, previewId = 'skill-p
             {skill.elements && (
               <span className="font-semibold">{renderFormattedText(skill.elements)}</span>
             )}
-            <span className="bg-yellow-500 text-black px-3 py-1 rounded font-bold">
-              {skill.speed || '00SPD'}
-            </span>
           </div>
 
           <div className="text-white font-semibold">

@@ -76,23 +76,16 @@ const SkillList: React.FC<SkillListProps> = ({
               >
                 <div
                   onClick={() => onSelectSkill(skill.id)}
-                  className="mb-2"
+                  className="mb-2 flex items-center gap-2"
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <span
-                      className={`${template.backgroundColor} px-2 py-1 rounded text-xs font-bold text-black`}
-                    >
-                      {template.symbol}
-                    </span>
-                    <span className="font-bold text-sm text-gray-800 truncate flex-1">
-                      {skill.name || 'Sem nome'}
-                    </span>
-                  </div>
-                  {skill.subtitle && (
-                    <p className="text-xs text-gray-500 truncate ml-8">
-                      {skill.subtitle}
-                    </p>
-                  )}
+                  <span
+                    className={`${template.backgroundColor} px-2 py-1 rounded text-xs font-bold text-black flex-shrink-0`}
+                  >
+                    {template.symbol}
+                  </span>
+                  <span className="font-bold text-sm text-gray-800 truncate flex-1">
+                    {skill.name || 'Sem nome'}
+                  </span>
                 </div>
 
                 <div className="flex gap-1">

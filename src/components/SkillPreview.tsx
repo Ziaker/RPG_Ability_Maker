@@ -44,7 +44,7 @@ const SkillPreview: React.FC<SkillPreviewProps> = ({ skill, previewId = 'skill-p
   };
 
   return (
-    <div id={previewId} className="w-full max-w-4xl bg-gray-700 border-4 border-gray-600 rounded-lg overflow-hidden shadow-2xl">
+    <div id={previewId} className="w-full bg-gray-700 border-4 border-gray-600 rounded-lg overflow-hidden shadow-2xl" style={{ minHeight: '600px' }}>
       <div className={`${template.backgroundColor} border-b-4 ${template.borderColor} px-6 py-3`}>
         <div className="flex items-center justify-between text-black">
           <div className="flex items-center gap-4">
@@ -81,8 +81,8 @@ const SkillPreview: React.FC<SkillPreviewProps> = ({ skill, previewId = 'skill-p
         </div>
       </div>
 
-      <div className="bg-gray-600 px-6 py-2 border-b-2 border-gray-500">
-        <div className="flex items-center justify-between gap-4 text-sm">
+      <div className="bg-gray-600 px-6 py-3 border-b-2 border-gray-500">
+        <div className="flex items-center justify-between gap-4 text-base">
           <div className="flex items-center gap-3 text-white">
             {skill.elements && (
               <span className="font-semibold">{renderFormattedText(skill.elements)}</span>
@@ -104,12 +104,12 @@ const SkillPreview: React.FC<SkillPreviewProps> = ({ skill, previewId = 'skill-p
         </div>
       </div>
 
-      <div className="bg-gray-500 px-6 py-8 space-y-6">
-        <div className="bg-gray-300 rounded-lg p-6">
-          <h3 className="text-center text-black font-bold text-xl mb-4 uppercase">
+      <div className="bg-gray-500 px-8 py-10 space-y-8">
+        <div className="bg-gray-300 rounded-lg p-8">
+          <h3 className="text-center text-black font-bold text-2xl mb-6 uppercase">
             DESCRIÇÃO
           </h3>
-          <div className="text-black text-base leading-relaxed">
+          <div className="text-black text-lg leading-relaxed">
             {skill.description ? (
               renderFormattedTextWithBreaks(skill.description)
             ) : (
@@ -118,11 +118,11 @@ const SkillPreview: React.FC<SkillPreviewProps> = ({ skill, previewId = 'skill-p
           </div>
         </div>
 
-        <div className="bg-gray-600 rounded-lg p-6">
-          <h3 className="text-center text-white font-bold text-xl mb-4 uppercase">
+        <div className="bg-gray-600 rounded-lg p-8">
+          <h3 className="text-center text-white font-bold text-2xl mb-6 uppercase">
             EFEITO
           </h3>
-          <div className="text-white text-base leading-relaxed">
+          <div className="text-white text-lg leading-relaxed">
             {skill.effect ? (
               renderFormattedTextWithBreaks(skill.effect)
             ) : (
